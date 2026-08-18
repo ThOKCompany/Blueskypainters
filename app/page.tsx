@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation";
 import CTAButton from "@/components/CTAButton";
 import ServiceCard from "@/components/ServiceCard";
 import GallerySection, { type GalleryProject } from "@/components/GallerySection";
+import AvailabilityMap from "@/components/AvailabilityMap";
 import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import { playHeroEntrance, initScrollReveals } from "@/lib/animations";
 import {
@@ -596,6 +597,9 @@ export default function Home() {
     </div>
   </div>
 </section>
+
+        {/* ------------------------------------------- Service area coverage */}
+        <AvailabilityMap />
 
         {/* ----------------------------------------------------- Gallery */}
         <GallerySection items={GALLERY_ITEMS} />

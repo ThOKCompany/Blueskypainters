@@ -7,6 +7,13 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import CTAButton from "./CTAButton";
 
+// Navigation is also rendered on the dedicated pages, which do not import
+// the homepage animation module. Register the hook here so the drawer works
+// consistently on every route.
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(useGSAP);
+}
+
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
@@ -95,12 +102,12 @@ export default function Navigation() {
           <ul className="flex items-center gap-8 text-sm font-medium text-navy/70">
             {NAV_LINKS.map((link) => (
               <li key={link.href}>
-                <a
+                <Link
                   href={link.href}
                   className="transition-colors hover:text-navy"
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -181,14 +188,14 @@ export default function Navigation() {
         <ul className="mt-10 flex flex-col gap-2 text-lg font-medium text-navy">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <a
+              <Link
                 href={link.href}
                 onClick={handleLinkClick}
                 tabIndex={isOpen ? 0 : -1}
                 className="block rounded-xl px-3 py-3 transition-colors hover:bg-brand-bg hover:text-brand focus-visible:outline-brand"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
