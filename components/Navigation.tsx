@@ -74,7 +74,8 @@ export default function Navigation() {
   const handleLinkClick = () => setIsOpen(false);
 
   return (
-    <header
+    <>
+      <header
       className={`sticky top-0 z-50 transition-colors duration-300 ${
         isScrolled
           ? "bg-white/90 backdrop-blur-md shadow-[0_1px_0_0_rgba(28,49,99,0.08)]"
@@ -142,74 +143,78 @@ export default function Navigation() {
         </button>
       </nav>
 
-      <button
-        type="button"
-        aria-label="Close navigation menu"
-        aria-hidden={!isOpen}
-        tabIndex={isOpen ? 0 : -1}
-        onClick={handleLinkClick}
-        className={`fixed inset-0 z-[60] bg-navy/35 backdrop-blur-[2px] transition-opacity duration-300 lg:hidden ${
-          isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
-        }`}
-      />
+      </header>
 
-      <div
-        ref={panelRef}
-        id="mobile-menu"
-        aria-label="Mobile navigation"
-        aria-hidden={!isOpen}
-        className="fixed inset-y-0 left-0 z-[70] flex w-[84vw] max-w-sm flex-col bg-white px-6 pb-8 pt-5 shadow-2xl lg:hidden"
-        style={{ transform: "translateX(-100%)" }}
-      >
-        <div className="flex items-center justify-between">
-          <Link href="/" aria-label="Blue Sky Painter — home" onClick={handleLinkClick} tabIndex={isOpen ? 0 : -1}>
-            <Image
-              src="/logo/blueskypainterlogo.png"
-              alt="Blue Sky Painter"
-              width={120}
-              height={80}
-              className="h-14 w-20 object-contain object-left"
-            />
-          </Link>
-          <button
-            ref={closeButtonRef}
-            type="button"
-            aria-label="Close menu"
-            tabIndex={isOpen ? 0 : -1}
-            onClick={handleLinkClick}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-navy/15 text-navy transition-colors hover:border-brand hover:text-brand focus-visible:outline-brand"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-              <path d="M6 6l12 12M18 6L6 18" />
-            </svg>
-          </button>
-        </div>
+    {/* These layers intentionally sit outside the sticky header so the
+        header's backdrop blur cannot create a containing block for them. */}
+    <button
+      type="button"
+      aria-label="Close navigation menu"
+      aria-hidden={!isOpen}
+      tabIndex={isOpen ? 0 : -1}
+      onClick={handleLinkClick}
+      className={`fixed inset-0 z-[90] bg-navy/35 backdrop-blur-[2px] transition-opacity duration-300 lg:hidden ${
+        isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
+      }`}
+    />
 
-        <ul className="mt-10 flex flex-col gap-2 text-lg font-medium text-navy">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <Link
-                href={link.href}
-                onClick={handleLinkClick}
-                tabIndex={isOpen ? 0 : -1}
-                className="block rounded-xl px-3 py-3 transition-colors hover:bg-brand-bg hover:text-brand focus-visible:outline-brand"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <CTAButton
-          href="/contact"
-          variant="primary"
-          className="mt-auto w-full"
-          onClick={handleLinkClick}
+    <div
+      ref={panelRef}
+      id="mobile-menu"
+      aria-label="Mobile navigation"
+      aria-hidden={!isOpen}
+      className="fixed left-0 top-0 z-[100] flex h-[100dvh] w-[84vw] max-w-[360px] flex-col overscroll-contain overflow-y-auto bg-white px-6 pb-8 pt-5 shadow-2xl lg:hidden"
+      style={{ transform: "translateX(-100%)" }}
+    >
+      <div className="flex items-center justify-between">
+        <Link href="/" aria-label="Blue Sky Painter — home" onClick={handleLinkClick} tabIndex={isOpen ? 0 : -1}>
+          <Image
+            src="/logo/blueskypainterlogo.png"
+            alt="Blue Sky Painter"
+            width={120}
+            height={80}
+            className="h-14 w-20 object-contain object-left"
+          />
+        </Link>
+        <button
+          ref={closeButtonRef}
+          type="button"
+          aria-label="Close menu"
           tabIndex={isOpen ? 0 : -1}
+          onClick={handleLinkClick}
+          className="flex h-10 w-10 items-center justify-center rounded-full border border-navy/15 text-navy transition-colors hover:border-brand hover:text-brand focus-visible:outline-brand"
         >
-          Request a Quote
-        </CTAButton>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
       </div>
-    </header>
+
+      <ul className="mt-10 flex flex-col gap-2 text-lg font-medium text-navy">
+        {NAV_LINKS.map((link) => (
+          <li key={link.href}>
+            <Link
+              href={link.href}
+              onClick={handleLinkClick}
+              tabIndex={isOpen ? 0 : -1}
+              className="block rounded-xl px-3 py-3 transition-colors hover:bg-brand-bg hover:text-brand focus-visible:outline-brand"
+            >
+              {link.label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      <CTAButton
+        href="/contact"
+        variant="primary"
+        className="mt-auto w-full"
+        onClick={handleLinkClick}
+        tabIndex={isOpen ? 0 : -1}
+      >
+        Request a Quote
+      </CTAButton>
+    </div>
+  </>
   );
 }
