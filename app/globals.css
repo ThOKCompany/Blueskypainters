@@ -63,11 +63,10 @@ body {
   border-radius: 2px;
 }
 
-/* Elements GSAP animates in from a scroll trigger start hidden so there is
-   no flash of unstyled content before JS runs, and degrade gracefully
-   (fully visible) if JS never runs. */
+/* Reveal targets stay visible by default so secondary routes remain usable
+   when JavaScript or GSAP is unavailable. The homepage animation explicitly
+   sets these targets before animating them in. */
 [data-reveal] {
-  opacity: 0;
   will-change: transform, opacity;
 }
 

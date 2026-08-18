@@ -235,7 +235,7 @@ export default function Home() {
     <>
       <Navigation />
 
-      <main id="home">
+      <main id="home" className="flex-1">
         {/* ---------------------------------------------------------- Hero */}
        <section
   aria-label="Introduction"
@@ -247,10 +247,11 @@ export default function Home() {
     <Image
       src="/images/hero/paintbox.jpg"
       alt="Professional painting tools and fresh paint"
-      fill
+      width={7360}
+      height={4912}
       priority
       sizes="100vw"
-      className="object-cover object-bottom"
+      className="absolute inset-0 h-full w-full object-cover object-bottom"
     />
 
     {/* Overlay */}
