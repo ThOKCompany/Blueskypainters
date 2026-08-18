@@ -1,36 +1,81 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Blue Sky Painter — Homepage
 
-## Getting Started
+A single-page, conversion-focused homepage for Blue Sky Painter (Totara
+Vale, Auckland), built with Next.js (App Router), React, Tailwind CSS v4
+and GSAP.
 
-First, run the development server:
+Logo, business copy (about/services/testimonials), phone, email and
+address are the client's real content. **Gallery project photos are still
+placeholders** — see "Still to replace" below.
+
+## Stack
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS v4 (design tokens live in `app/globals.css` under `:root`
+  and `@theme inline` — Tailwind v4 doesn't use `tailwind.config.ts` for
+  this)
+- GSAP (+ ScrollTrigger, via the official `@gsap/react` `useGSAP` hook)
+  for hero entrance and scroll reveals only
+
+## Getting started
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+app/
+  layout.tsx      — fonts, <head> metadata (title/description/OG)
+  page.tsx         — the entire homepage, section by section
+  globals.css      — color tokens, base styles, reduced-motion handling
 
-## Learn More
+components/
+  Navigation.tsx   — sticky nav + mobile menu, real logo
+  CTAButton.tsx    — shared call-to-action button (primary/secondary/ghost/inverse)
+  ServiceCard.tsx  — service grid card, optional "Get a Quote" link
+  GalleryItem.tsx  — gallery tile (real photo or styled placeholder)
 
-To learn more about Next.js, take a look at the following resources:
+lib/
+  animations.ts    — GSAP hero entrance + scroll-reveal helpers
+  icons.tsx         — small inline SVG icons used throughout the page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+public/
+  images/hero/      — hero photo (paintbrush.png)
+  images/gallery/    — reserved for real project photos
+  logo/              — real logo (blue-sky-painter-logo.png)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Still to replace
 
-## Deploy on Vercel
+- **Gallery photos** — `GALLERY_ITEMS` in `app/page.tsx` currently render
+  as styled color-swatch placeholders via `GalleryItem`. Add real project
+  photos to `public/images/gallery/` and pass a `src` prop to switch a
+  tile over to an actual `next/image`.
+- **Facebook link** — the Contact section has a Facebook tile but no real
+  URL was supplied yet; it's currently a non-functional `#` link
+  (`aria-label` notes it's a placeholder).
+- **"More reviews on Google"** — currently plain text under the
+  testimonials grid; link it to the business's real Google review page
+  once available.
+- **Hero image** — `public/images/hero/paintbrush.png` is stock/placeholder
+  photography (paint rollers), not a real project or team photo. Swap for
+  one when available; update the `alt` text in `app/page.tsx` to match.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- No backend, database, auth, CMS, or contact-form submission — this is a
+  static marketing page only, per the project brief.
+- Brand name appears as "Blue Sky Painter" (singular) throughout, matching
+  the real email domain (`blueskypainter.co.nz`) and copyright line
+  supplied by the client. Flag if "Blue Sky Painters" (plural) is actually
+  correct.
+- Animations are GSAP-driven scroll reveals + a hero entrance; they
+  respect `prefers-reduced-motion` and the page is fully readable with JS
+  disabled.
+
+# Blueskypainters

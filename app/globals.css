@@ -1,26 +1,77 @@
 @import "tailwindcss";
 
+/*
+  Blue Sky Painter — final brand palette.
+  Deep Navy (#1C3163) + Primary Blue (#0365EA) + Supporting Blue (#3D8EF4)
+  + Light Blue (#EFF7FF), paired with clean white as the neutral base.
+  This replaces the earlier placeholder "sky/ink/cream" system — every
+  section on the site is built from these four tokens (plus white) now.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-brand: #0365ea;
+  --color-brand-accent: #3d8ef4;
+  --color-brand-bg: #eff7ff;
+  --color-navy: #1c3163;
+
+  --color-clay-200: #f0d9d0;
+  --color-clay-400: #d99b83;
+  --color-clay-500: #c97b5c;
+  --color-clay-600: #b1613f;
+
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand: var(--color-brand);
+  --color-brand-accent: var(--color-brand-accent);
+  --color-brand-bg: var(--color-brand-bg);
+  --color-navy: var(--color-navy);
+  --color-clay-200: var(--color-clay-200);
+  --color-clay-400: var(--color-clay-400);
+  --color-clay-500: var(--color-clay-500);
+  --color-clay-600: var(--color-clay-600);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-navy);
+  font-family: var(--font-poppins), sans-serif;
+}
+
+/* Respect users who've asked for reduced motion at the OS level. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Visible, consistent focus ring for keyboard navigation. */
+:focus-visible {
+  outline: 2px solid var(--color-brand);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Elements GSAP animates in from a scroll trigger start hidden so there is
+   no flash of unstyled content before JS runs, and degrade gracefully
+   (fully visible) if JS never runs. */
+[data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.no-js [data-reveal],
+.gsap-disabled [data-reveal] {
+  opacity: 1;
 }
